@@ -1,0 +1,58 @@
+# Browser automation settings
+# Set headless: true to run without a visible browser window
+# Set headless: false to watch the automation in action (recommended for first-time use)
+browser:
+  headless: false
+  # Viewport size - common resolutions: 1920x1080, 1366x768, 1280x720
+  viewport_width: 1366
+  viewport_height: 768
+  # Leave empty to use random user-agent, or specify a custom one
+  user_agent: ""
+
+# SQLite database configuration
+# The database stores sent connection requests and messages to avoid duplicates
+database:
+  dsn: "file:linkedin_poc.db?_fk=1"
+
+# LinkedIn search configuration
+# Keywords to search for when finding profiles
+# Max pages controls how many pages of results to process per keyword
+# Delays simulate human reading/thinking time between actions
+search:
+  keywords:
+    - "golang developer"
+    - "backend engineer"
+    # Add more keywords as needed:
+    # - "python developer"
+    # - "software engineer"
+    # - "data scientist"
+  max_pages: 1  # Increase to 2-3 for more results (be conservative!)
+  page_delay_min: 2s  # Minimum wait time between pages
+  page_delay_max: 5s  # Maximum wait time between pages
+
+# Connection request settings
+# Daily limit prevents sending too many requests in one day
+# Note template supports {{PROFILE_URL}} variable replacement
+connect:
+  daily_limit: 5  # Conservative limit for PoC (LinkedIn's limit is ~100/week)
+  note_template: "Hi! I came across your profile while exploring LinkedIn automation techniques for educational purposes. Would love to connect and learn from your experience."
+  # Delays between connection actions to appear more human-like
+  action_delay_min: 3s
+  action_delay_max: 8s
+
+# Follow-up messaging configuration
+# Templates are randomly selected when sending messages
+# Check interval determines how often to look for new connections (not actively used in current PoC)
+messaging:
+  templates:
+    - "Thanks for connecting! I'm working on a LinkedIn automation proof-of-concept project and found your profile interesting. Looking forward to learning from your posts."
+    - "Great to connect! I'm currently evaluating browser automation techniques and your profile came up in a demo search. Would love to hear about your experience."
+    # Add more templates for variety:
+    # - "Hi! Thanks for accepting my connection request. I'm exploring automation tools and found your background interesting."
+  check_interval: 10m  # How often to check for new connections (currently informational)
+  daily_limit: 5  # Maximum messages per day (be conservative!)
+  action_delay_min: 3s
+  action_delay_max: 8s
+
+
+
